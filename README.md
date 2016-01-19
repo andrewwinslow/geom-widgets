@@ -2,7 +2,8 @@
 Embeddable Javascript widgets based on computational geometry ideas. They are:
 
 
-1. Deep Point Sets. A "deep point set" is a set of n points in the plane such that 
+### Deep Point Sets. 
+A _deep point set_ is a set of n points in the plane such that 
 the n(n-1)/2 distances between them have n-1 distinct distances with 
 one distance occurring 1 time, one distance occuring 2 times, etc. up to n-1 times[1].
 
@@ -15,7 +16,7 @@ This widget allows the user to arrange points on a triangular lattice to experim
 with the discovery and creation of deep point sets. Most exciting is the possibility of 
 finding a new example of 9 or more points, advancing the state of the art on this problem. 
 
-[1] The points must also be in "general position", i.e. no three collinear and no four cocircular.
+[1] The points must also be in _general position_: no three collinear and no four cocircular.
 
 [2] The answer is easily seen to be "yes" if the requirement of general position is dropped.
 
@@ -23,7 +24,8 @@ finding a new example of 9 or more points, advancing the state of the art on thi
     Periodica Mathematica Hungarica, 20(3), 231--235, 1989.
 
 
-2. Minimum Spanning Tree. The "minimum spanning tree" of a set of points is the 
+### Minimum Spanning Tree. 
+The _minimum spanning tree_ of a set of points is the 
 graph connecting the points together with least total edge (Euclidean) length.[1]
 This graph is easily seen to be a tree and can be constructed greedily by 
 repeatedly taking the shortest edge that does not form a cycle. 
