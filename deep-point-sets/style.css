@@ -1,0 +1,25 @@
+body
+{
+        background-color:#d0e4fe;
+}
+
+.stuff
+{
+        text-align:center;
+        margin-left:auto;
+        margin-right:auto;
+        width:600px;
+        background-color:#dddddd;
+        padding:20px;
+}
+
+.canvasbox
+{
+        width:600px;
+        height:600px;
+        margin-left:auto;
+        margin-right:auto;
+        background-color:#ffffff;
+}
+
+
