@@ -21,8 +21,10 @@ function setThetaMode()
 		spanner_mode = "t6";
 	else if (document.getElementById('tt6').checked)
 		spanner_mode = "tt6";
-	else 
+	else if (document.getElementById('yaoyao').checked) 
 		spanner_mode = "yaoyao";
+	else
+		spanner_mode = "half-tt6";
 }
 
 function initGlobals()
@@ -286,6 +288,48 @@ function draw_yaoyao_edges(points)
 		}
 	}
 }
+
+function draw_halfthetatheta6_edges(points)
+{
+	// For each point
+	for (var i = 0; i < points.length; ++i)
+	{
+		// For each cone
+		for (var c = 0; c < 6; c+=2)
+		{
+			// Find the incoming edge for this cone
+			var dist = 1000000;
+			var closest = -1;
+			for (var j = 0; j < points.length; ++j)
+			{
+				// Iterate through other point j, find the point j
+				// has outgoint edge to in the cone, and if it's point i,
+				// compare distance to i with current "best" (closest) incoming 
+				// edge for point i.
+				if (j == i)
+					continue;
+				var w = theta_winner(j, points, (c+3) % 6);
+				if (w == i)
+				{
+					var q = new Point(points[j].x, points[j].y);
+					q.x -= points[i].x;
+					q.y -= points[i].y;
+					q = rotate(q, Math.PI/3.0 * (1-c));
+					if (q.y < dist)
+					{
+						closest = j;
+						dist = q.y;
+					}
+				}	
+			}
+			if (closest != -1)
+			{
+				draw_edge(points[closest], points[i], "#000", 3.0);
+			}
+		}
+	}
+}
+
 function draw_thetatheta6_edges(points)
 {
 	for (var i = 0; i < points.length; ++i)
@@ -322,15 +366,18 @@ function draw_thetatheta6_edges(points)
 
 function draw_mode()
 {
+	var pos = new Point(480, 30)
 	context.fillStyle = "#000";
 	context.font = "bold 28px sans-serif";
 	theta = String.fromCharCode(952);
 	if (spanner_mode == "t6")
-		context.fillText(theta + "6", 480, 30);
+		context.fillText(theta + "6", pos.x, pos.y);
 	else if (spanner_mode == "tt6")
-		context.fillText(theta + theta + "6", 480, 30);
-	else 
-		context.fillText("YaoYao", 480, 30);
+		context.fillText(theta + theta + "6", pos.x, pos.y);
+	else if (spanner_mode == "yaoyao") 
+		context.fillText("YaoYao", pos.x, pos.y);
+	else
+		context.fillText("Half " + theta + theta + "6", pos.x, pos.y);
 }
 
 function startActivity()
@@ -339,7 +386,7 @@ function startActivity()
         clearCanvas();
         context.strokeStyle = "#000";
 
-        var points = [new Point(100, 100), new Point(200, 200)];
+        var points = [new Point(200, 200), new Point(350, 350)];
         cur_pt = -1;
         var mouse_loc = null;
  
@@ -351,8 +398,11 @@ function startActivity()
 			draw_theta6_edges(points);
 		else if (spanner_mode == "tt6")
 	                draw_thetatheta6_edges(points);
-		else
+		else if (spanner_mode == "yaoyao")
 	                draw_yaoyao_edges(points);
+		else
+			draw_halfthetatheta6_edges(points);
+
 		draw_points(points);
                 draw_add_delete();
 		draw_mode();
@@ -421,6 +471,8 @@ function startActivity()
         canvas.addEventListener('mouseup', ev_mouseup, false);
 	document.modesForm.addEventListener('change', ev_radio_mode, false);
 	draw_current_state();
+
+	setInterval(draw_current_state, 300);
 }
 
 
