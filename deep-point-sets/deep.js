@@ -262,7 +262,7 @@ function draw_distances(points, cur_pt)
                 }
         }         
 
-	// Draw circles QQQ
+	// Draw circles 
         for (var i = 0; i < points.length; ++i)
 	{
 		p = tc(new Point(points[i].x * tri_size, points[i].y * tri_size));
@@ -613,7 +613,7 @@ function startActivity()
         canvas.addEventListener('mousemove', ev_mousemove, false);
         canvas.addEventListener('mouseup', ev_mouseup, false);
 
-        //setInterval(draw_current_state, 100);
+        setInterval(draw_current_state, 300);
 }
 
 
